@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2020-05-04 10:28:57
- * @LastEditTime: 2020-05-04 11:45:53
+ * @LastEditTime: 2020-05-05 22:16:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tvm/home/afly/work/afly_ai/src/tensor.cpp
  */
-#include "../include/fy/tensor.h"
+#include <fy/tensor.h>
 
 namespace fy{
 namespace tensor{

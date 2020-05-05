@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-04 12:21:00
- * @LastEditTime: 2020-05-05 17:24:44
+ * @LastEditTime: 2020-05-05 22:15:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tvm/home/afly/work/afly_ai/src/main.cpp
@@ -10,13 +10,9 @@
 #include <string>
 #include <cstring>
 #include <stdio.h>
-#if 0
-#include <dmlc-core/include/dmlc/logging.h>
-#endif
 #include <boost/version.hpp>
-#include "../3rdparty/dmlc-core/include/dmlc/logging.h"
-// #include "../include/fy/node.h"
-#include "../include/fy/graph.h"
+#include <dmlc/logging.h>
+#include <fy/graph.h>
 
 using namespace std;
 using namespace fy::node;
@@ -48,15 +44,16 @@ int main(int argc, char *argv[])
     ep.dst = 11;
     graph.addNode(absNode);
     graph.addNode(logNode);
-    graph.addNode(logNode1);
+    // graph.addNode(logNode1);
     graph.addEdge(absNode, logNode, ep);
-    graph.addEdge(logNode, logNode1, ep);
+    // graph.addEdge(logNode, logNode1, ep);
 
 
-    graph.printAllNodes();
-    graph.printAllEdges();
-    auto s = graph.getAllNodes();
-    DLOG(INFO) <<" nodes size: "<<s.size();
+
+    // graph.printAllNodes();
+    // graph.printAllEdges();
+    // auto s = graph.getAllNodes();
+    // DLOG(INFO) <<" nodes size: "<<s.size();
 
     // graph->AddVertex(logNode);
     // DLOG(INFO)<<"add abs node.";

@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-05-04 11:43:08
- * @LastEditTime: 2020-05-05 17:27:21
+ * @LastEditTime: 2020-05-05 22:16:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tvm/home/afly/work/afly_ai/src/graph.cpp
  */
 #include <iostream>
-#include "../include/fy/graph.h"
-#include "../3rdparty/dmlc-core/include/dmlc/logging.h"
+#include <fy/graph.h>
+#include <dmlc/logging.h>
 
 
 namespace fy {

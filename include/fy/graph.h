@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-04 11:35:46
- * @LastEditTime: 2020-05-05 16:26:31
+ * @LastEditTime: 2020-05-05 22:11:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tvm/home/afly/work/afly_ai/include/fy/graph.h
@@ -22,7 +22,7 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <vector>
-#include "../3rdparty/dmlc-core/include/dmlc/logging.h"
+#include <dmlc/logging.h>
 #include "node.h"
 
 namespace boost {
@@ -93,9 +93,7 @@ class afly_graph{
         //不可用inline函数
         Vertex addNode(const baseOpNodePtr& prop){
             auto v = add_vertex(prop, inter_graph);
-            DLOG(INFO)<<"TEST2";
             local_map_[prop] = v;
-
             return v;
         }
 
