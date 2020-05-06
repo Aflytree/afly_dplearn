@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-04 11:35:46
- * @LastEditTime: 2020-05-06 22:59:55
+ * @LastEditTime: 2020-05-06 23:16:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tvm/home/afly/work/afly_ai/include/fy/graph.h
@@ -40,13 +40,24 @@ struct EdgeProperty{
     int dst;
 };
 
-enum vertex_properties_t { vertex_properties };
-enum edge_properties_t { edge_properties };
+// enum vertex_properties_t { vertex_properties };
+// enum edge_properties_t { edge_properties };
 
 typedef std::shared_ptr<fy::node::OpNode> baseOpNodePtr;
 
 template < typename NodeDataType, typename EdgeDataType>
 class afly_graph{
+
+    typedef struct edge_t{
+        edge_t(NodeDataType src = nullptr,
+               NodeDataType dst = nullptr) :
+               srcNode(src), dstNode(dst)
+        {}
+        NodeDataType srcNode;
+        NodeDataType dstNode;
+        EdgeProperty data;
+
+    }UserEdge;
 
     typedef property<vertex_name_t, NodeDataType>
                                         VertexProperty;

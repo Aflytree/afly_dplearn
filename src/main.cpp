@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-04 12:21:00
- * @LastEditTime: 2020-05-05 22:15:42
+ * @LastEditTime: 2020-05-06 22:36:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tvm/home/afly/work/afly_ai/src/main.cpp
@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
                         std::make_shared<LogNode>(2,"log");
     std::shared_ptr <base1OpNode> logNode1 =
                         std::make_shared<LogNode>(2,"log1");
-    // fy::graph::afly_graph* graph =  new fy::graph::afly_graph();
-    fy::graph::afly_graph graph;
+    // fy::graph::FyGraphType* graph =  new fy::graph::FyGraphType();
+    fy::graph::FyGraphType graph;
     EdgeProperty ep;
     ep.src = 10;
     ep.dst = 11;
