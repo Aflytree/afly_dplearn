@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-04 11:43:08
- * @LastEditTime: 2020-05-05 22:16:53
+ * @LastEditTime: 2020-05-06 22:58:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tvm/home/afly/work/afly_ai/src/graph.cpp
@@ -16,61 +16,67 @@ namespace graph {
 
     using namespace fy::node;
     using namespace std;
-    typedef std::shared_ptr<fy::node::OpNode> baseOpNodePtr;
 
-    void afly_graph::addEdge(baseOpNodePtr node1,
-                             baseOpNodePtr node2,
-                             EdgeProperty edge){
+    //未定义的引用
+    // template <typename NodeDataType, typename EdgeDataType>
+    // void afly_graph<NodeDataType, EdgeDataType>::addEdge(NodeDataType node1,
+    //                                                      NodeDataType node2,
+    //                                                      EdgeDataType edge)
+    // {
+    //     auto r1 = local_map_.find(node1);
+    //     auto r2 = local_map_.find(node2);
+    //     if(r1 == local_map_.end() && r2 == local_map_.end()){
+    //         LOG(FATAL) << "should add node first!";
+    //     }
+    //     add_edge(r1->second, r2->second, edge, inter_graph);
+    // }
 
-        auto r1 = local_map_.find(node1);
-        auto r2 = local_map_.find(node2);
-        if(r1 == local_map_.end() && r2 == local_map_.end()){
-            LOG(FATAL) << "should add node first!";
-        }
-        add_edge(r1->second, r2->second, edge, inter_graph);
-    }
-
-    void afly_graph::in_degree(baseOpNodePtr node){
-
+    template <typename NodeDataType, typename EdgeDataType>
+    void afly_graph<NodeDataType, EdgeDataType>::in_degree(NodeDataType node){
     };
 
-    void afly_graph::out_degree(baseOpNodePtr node){
-
-    };
-    inline std::vector<baseOpNodePtr> afly_graph::inNodes(){
-
-    };
-    inline std::vector<baseOpNodePtr> afly_graph::outNodes(){
-
+    template <typename NodeDataType, typename EdgeDataType>
+    void afly_graph<NodeDataType, EdgeDataType>::out_degree(NodeDataType node){
     };
 
-    std::vector<baseOpNodePtr> afly_graph::getAllNodes(){
+    template <typename NodeDataType, typename EdgeDataType>
+    std::vector<NodeDataType> afly_graph<NodeDataType, EdgeDataType>::inNodes(){
+    };
+
+    template <typename NodeDataType, typename EdgeDataType>
+    std::vector<NodeDataType> afly_graph<NodeDataType, EdgeDataType>::outNodes(){
+    };
+
+    template <typename NodeDataType, typename EdgeDataType>
+    std::vector<NodeDataType> afly_graph<NodeDataType, EdgeDataType>::getAllNodes(){
         DLOG(INFO)<<"get all nodes:";
-        std::vector<baseOpNodePtr> v;
+        std::vector<NodeDataType> v;
         auto vertexprop = get(boost::vertex_name, inter_graph);
 
         vertex_range_t vrange = vertices(inter_graph);
         for(vertex_iter itr = vrange.first; itr!=vrange.second; ++itr){
-            baseOpNodePtr vprop = vertexprop[*itr];
+            NodeDataType vprop = vertexprop[*itr];
             v.push_back(vprop);
             DLOG(INFO)<<vprop;
         }
         return v;
     };
 
-    void afly_graph::printAllNodes(){
+    template <typename NodeDataType, typename EdgeDataType>
+    void afly_graph<NodeDataType, EdgeDataType>::printAllNodes(){
         DLOG(INFO)<<"print all nodes:";
         vertex_range_t vrange = vertices(inter_graph);
         auto vertexprop = get(boost::vertex_name, inter_graph);
         for(vertex_iter itr = vrange.first; itr!=vrange.second; ++itr){
-            baseOpNodePtr vprop = vertexprop[*itr];
+            NodeDataType vprop = vertexprop[*itr];
             cout <<vprop->getName() <<"["<<*itr <<"]"<< endl;
 
             auto tmp = *itr;
         }
     };
 
-    void afly_graph::printAllEdges(){
+    template <typename NodeDataType, typename EdgeDataType>
+    void afly_graph<NodeDataType, EdgeDataType>::printAllEdges(){
         DLOG(INFO)<<"print all edges:";
         edge_range_t erange = edges(inter_graph);
         if(erange.first == erange.second){

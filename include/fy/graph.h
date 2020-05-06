@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-05-04 11:35:46
- * @LastEditTime: 2020-05-05 22:11:20
+ * @LastEditTime: 2020-05-06 22:59:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tvm/home/afly/work/afly_ai/include/fy/graph.h
@@ -42,23 +42,20 @@ struct EdgeProperty{
 
 enum vertex_properties_t { vertex_properties };
 enum edge_properties_t { edge_properties };
-// BOOST_INSTALL_PROPERTY(vertex, properties);
-// BOOST_INSTALL_PROPERTY(edge, properties);
-//template < typename VERTEXPROPERTIES, typename EDGEPROPERTIES >
+
+typedef std::shared_ptr<fy::node::OpNode> baseOpNodePtr;
+
+template < typename NodeDataType, typename EdgeDataType>
 class afly_graph{
 
-    typedef std::shared_ptr<fy::node::OpNode> baseOpNodePtr;
-    // typedef property<vertex_properties_t, baseOpNodePtr>
-    //                                     VertexProperty;
-    typedef property<vertex_name_t, baseOpNodePtr>
+    typedef property<vertex_name_t, NodeDataType>
                                         VertexProperty;
-    typedef property<edge_properties_t, EdgeProperty>
-                                        EdgeWeightProperty;
-    typedef property<edge_weight_t, EdgeProperty>
+    // typedef property<edge_properties_t, EdgeDataType>
+    //                                     EdgeWeightProperty;
+    typedef property<edge_weight_t, EdgeDataType>
                                         EdgeWeightProperty2;
     typedef boost::adjacency_list<listS, vecS, directedS,
                         VertexProperty, EdgeWeightProperty2> graph_type_;
-    // typedef graph_traits::edge_iterator edge_iter;
     typedef typename graph_traits<graph_type_>::vertex_iterator
                                                         vertex_iter;
     // 边迭代器类型
@@ -91,57 +88,63 @@ class afly_graph{
         }
 
         //不可用inline函数
-        Vertex addNode(const baseOpNodePtr& prop){
+        Vertex addNode(const NodeDataType& prop){
             auto v = add_vertex(prop, inter_graph);
             local_map_[prop] = v;
             return v;
         }
 
-        // void addNode(baseOpNodePtr node);
-        void addEdge(baseOpNodePtr node1, baseOpNodePtr node2,
-                                            EdgeProperty edge);
-        void in_degree(baseOpNodePtr node);
-        void out_degree(baseOpNodePtr node);
-        std::vector<baseOpNodePtr> inNodes();
-        std::vector<baseOpNodePtr> outNodes();
+        void addEdge(NodeDataType node1, NodeDataType node2,
+                                    EdgeDataType edge){
+            auto r1 = local_map_.find(node1);
+            auto r2 = local_map_.find(node2);
+            if(r1 == local_map_.end() && r2 == local_map_.end()){
+                LOG(FATAL) << "should add node first!";
+            }
+            add_edge(r1->second, r2->second, edge, inter_graph);
+
+        }
+
+        void in_degree(NodeDataType node);
+        void out_degree(NodeDataType node);
+        std::vector<NodeDataType> inNodes();
+        std::vector<NodeDataType> outNodes();
         void printAllNodes();
         void printAllEdges();
-        std::vector<baseOpNodePtr> getAllNodes();
-        std::vector<EdgeProperty> getEAlledges();
-	vector<EdgeProperty>  getInEdges(const baseNodePtr& data);
-	//整个图的inputNodes
-	vector<baseOpNodePtr>  getInputNodes();
-	//整个图的outputNodes
-	vector<baseOpNodePtr>  getOutputNodes(){
-	    vector<baseOpNodePtr> DFSNodes = DFS();
-	    //outdegree为0
-	}
-	
-	size_t getOutDegree(const baseNodePtr& data);
-	size_t getInDegree(const baseNodePtr& data);
-	size_t removeNode(const baseNodePtr& data);
-	int32_t removeEdge(const EdgeProperty & edge);
-	int32_t removeEdge(const baseNodePtr& node1,const baseNodePtr& node2);
-	size_t getNumNodes() const{return num_vertices[inter_graph]};
-	size_t getNumEdges() const{return num_edges[inter_graph]};
-	std::string print();
-	//boost dfs方法遍历图
-	vector<baseNodePtr> DFS();
-	vector<baseNodePtr> BFS();
-	
-	int32_t writeToPDF(char const *filename){
-	
-	}
+        std::vector<NodeDataType> getAllNodes();
+        std::vector<EdgeDataType> getEAlledges();
+        vector<EdgeDataType>  getInEdges(const NodeDataType& data);
+        //整个图的inputNodes
+        vector<NodeDataType>  getInputNodes();
+        //整个图的outputNodes
+        vector<NodeDataType>  getOutputNodes(){
+            //vector<NodeDataType> DFSNodes = DFS();
+            //outdegree为0
+        }
 
+        size_t getOutDegree(const NodeDataType& data);
+        size_t getInDegree(const NodeDataType& data);
+        size_t removeNode(const NodeDataType& data);
+        int32_t removeEdge(const EdgeDataType & edge);
+        int32_t removeEdge(const NodeDataType& node1,const NodeDataType& node2);
+        size_t getNumNodes() const{return num_vertices[inter_graph];};
+        size_t getNumEdges() const{return num_edges[inter_graph];};
+        std::string print();
+        //boost dfs方法遍历图
+        vector<NodeDataType> DFS();
+        vector<NodeDataType> BFS();
 
-
+        int32_t writeToPDF(char const *filename){
+        }
 
     private:
         graph_type_ inter_graph;
-        /*baseOpNodePtr << -- >> Vertex*/
-        std::map<baseOpNodePtr, Vertex> local_map_;
+        /*NodeDataType << -- >> Vertex*/
+        std::map<NodeDataType, Vertex> local_map_;
         //std::vector<>
 };
+
+typedef fy::graph::afly_graph<baseOpNodePtr, EdgeProperty> FyGraphType;
 
 }// namespace graph
 }// namespace fy
