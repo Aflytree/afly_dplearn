@@ -108,6 +108,32 @@ class afly_graph{
         void printAllEdges();
         std::vector<baseOpNodePtr> getAllNodes();
         std::vector<EdgeProperty> getEAlledges();
+	vector<EdgeProperty>  getInEdges(const baseNodePtr& data);
+	//整个图的inputNodes
+	vector<baseOpNodePtr>  getInputNodes();
+	//整个图的outputNodes
+	vector<baseOpNodePtr>  getOutputNodes(){
+	    vector<baseOpNodePtr> DFSNodes = DFS();
+	    //outdegree为0
+	}
+	
+	size_t getOutDegree(const baseNodePtr& data);
+	size_t getInDegree(const baseNodePtr& data);
+	size_t removeNode(const baseNodePtr& data);
+	int32_t removeEdge(const EdgeProperty & edge);
+	int32_t removeEdge(const baseNodePtr& node1,const baseNodePtr& node2);
+	size_t getNumNodes() const{return num_vertices[inter_graph]};
+	size_t getNumEdges() const{return num_edges[inter_graph]};
+	std::string print();
+	//boost dfs方法遍历图
+	vector<baseNodePtr> DFS();
+	vector<baseNodePtr> BFS();
+	
+	int32_t writeToPDF(char const *filename){
+	
+	}
+
+
 
 
     private:
