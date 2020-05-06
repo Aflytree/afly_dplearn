@@ -1,7 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2020-05-04 11:35:46
+<<<<<<< HEAD
  * @LastEditTime: 2020-05-06 23:16:29
+=======
+ * @LastEditTime: 2020-05-06 23:13:49
+>>>>>>> 07d73ec9f65a54f59c6a0159d2603249c76aecd3
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /tvm/home/afly/work/afly_ai/include/fy/graph.h
